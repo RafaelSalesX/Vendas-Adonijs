@@ -2,6 +2,7 @@
 
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Venda from 'App/Models/Venda'
+import VendaValidator from 'App/Validators/VendaValidator'
 
 export default class VendasController {
   public async index({ response }: HttpContextContract) {
@@ -12,8 +13,8 @@ export default class VendasController {
   }
 
   public async store({ request, response }: HttpContextContract) {
-    // const body = await request.validate(VendaValidator)
-    const body = request.body()
+    const body = await request.validate(VendaValidator)
+    // const body = request.body()
     const venda = await Venda.create(body)
 
     return response.status(201).json({ erro: false, message: 'Cadastro Concluido!', data: venda })

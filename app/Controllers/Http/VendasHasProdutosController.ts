@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import VendaHasProduto from 'App/Models/VendaHasProduto'
+import VendaHasProdutoValidator from 'App/Validators/VendaHasProdutoValidator'
 
 export default class VendasHasProdutosController {
   public async index({ response }: HttpContextContract) {
@@ -12,8 +13,8 @@ export default class VendasHasProdutosController {
   }
 
   public async store({ request, response }: HttpContextContract) {
-    // const body = await request.validate(VendaHasProdutoValidator)
-    const body = request.body()
+    const body = await request.validate(VendaHasProdutoValidator)
+    // const body = request.body()
     const vendasProdutos = await VendaHasProduto.create(body)
 
     return response
